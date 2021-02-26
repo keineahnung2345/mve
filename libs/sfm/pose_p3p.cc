@@ -119,8 +119,7 @@ pose_p3p_kneip (
         std::copy(e1.begin(), e1.end(), T.begin() + 0);
         std::copy(e2.begin(), e2.end(), T.begin() + 3);
         std::copy(e3.begin(), e3.end(), T.begin() + 6);
-        //f3 = T * f3;
-        f3 = T * f3_tmp;
+        f3 = T * f3;
 	assert(f3[2] <= 0.0);
     }
 
