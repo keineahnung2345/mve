@@ -3,10 +3,6 @@ language: cpp
 compiler: gcc
 sudo: false
 
-branches:
-   only:
-     - master
-
 before_install:
    - if [ "$CXX" = "g++" ]; then export CXX="g++-6"; fi
 
