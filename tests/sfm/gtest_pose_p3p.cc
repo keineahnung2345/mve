@@ -134,6 +134,19 @@ TEST(PoseP3PTest, GroundTruth1)
         if(!found_good_solutions) break;
     }
     
+    if(!found_good_solutions){
+        std::cout << "The following testcase make the test fail!" << std::endl;
+        std::cout << "points:" << std::endl;
+        for(std::size_t i = 0; i < 3; ++i){
+            std::cout << points[i] << std::endl;
+        }
+        
+        std::cout << "directions:" << std::endl;
+        for(std::size_t i = 0; i < 3; ++i){
+            std::cout << directions[i] << std::endl;
+        }
+    }
+    
     EXPECT_TRUE(found_good_solutions);
 }
 
