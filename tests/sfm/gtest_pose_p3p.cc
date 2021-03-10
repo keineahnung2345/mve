@@ -144,7 +144,7 @@ TEST(PoseP3PTest, GroundTruth1)
         std::cout << "pose:" << std::endl;
         for(std::size_t i = 0; i < 4; ++i){
             for(std::size_t j = 0; j < 4; ++j){
-                std::cout << pose[i*4+j] << std::endl;
+                std::cout << pose[i*4+j] << " ";
             }
             std::cout << std::endl;
         }
