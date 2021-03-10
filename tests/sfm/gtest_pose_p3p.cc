@@ -49,7 +49,7 @@ namespace
 
     void
     fill_groundtruth_data (std::vector<math::Vec3d>* p,
-        std::vector<math::Vec3d>* d, math::Matrix<double, 3, 4>* s)
+        std::vector<math::Vec3d>* d, math::Matrix<double, 3, 4>* s, math::Matrix<double, 4, 4>* pose)
     {
         double mat[3 * 3];
         double mat_q[3 * 3];
@@ -64,7 +64,6 @@ namespace
     
         math::matrix_qr(mat, 3, 3, mat_q, mat_r, 1e-14);
         
-        math::Matrix<double, 4, 4> pose(0.0);
         for(int i = 0; i < 3; ++i){
             for(int j = 0; j < 3; ++j){
                 pose[i*4+j] = mat_q[i*3+j];
@@ -117,10 +116,11 @@ TEST(PoseP3PTest, GroundTruth1)
     std::vector<math::Vec3d> points, directions;
     math::Matrix<double, 3, 4> solution;
     std::vector<math::Matrix<double, 3, 4> > solutions;
+    math::Matrix<double, 4, 4> pose(0.0);
     bool found_good_solutions = true;
     
     for(std::size_t t = 0; t < 1000000; ++t){
-        fill_groundtruth_data(&points, &directions, &solution);
+        fill_groundtruth_data(&points, &directions, &solution, &pose);
 
         sfm::pose_p3p_kneip(points[0], points[1], points[2],
             directions[0], directions[1], directions[2], &solutions);
@@ -139,6 +139,11 @@ TEST(PoseP3PTest, GroundTruth1)
         std::cout << "points:" << std::endl;
         for(std::size_t i = 0; i < 3; ++i){
             std::cout << points[i] << std::endl;
+        }
+        
+        std::cout << "pose:" << std::endl;
+        for(std::size_t i = 0; i < 4; ++i){
+            std::cout << pose[i] << std::endl;
         }
         
         std::cout << "directions:" << std::endl;
